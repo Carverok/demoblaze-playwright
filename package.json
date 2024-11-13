@@ -1,0 +1,22 @@
+{
+  "name": "demoblaze-playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "postinstall": "playwright install",
+    "test": "playwright test",
+    "test:purchase": "playwright test tests/verifyPurchases.spec.ts",
+    "report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "Nayib Ayus <nayib.ayus@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.48.2",
+    "@types/node": "^22.9.0"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.2.0"
+  }
+}
