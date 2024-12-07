@@ -4,7 +4,7 @@ export const credentials = {
     password: "admin",
   },
   user: {
-    username: "user",
-    password: "user",
+    username: "test",
+    password: "test",
   },
 };
