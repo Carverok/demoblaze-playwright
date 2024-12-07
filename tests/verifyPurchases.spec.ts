@@ -10,7 +10,11 @@ test.beforeEach(async ({ page }) => {
 
   const username = credentials?.admin?.username || "admin";
   const password = credentials?.admin?.password || "admin";
+  const welcomeMessage = `Welcome ${username}`;
   await login({ page, username, password });
+
+  //expect that page get element link with text Welcome admin
+  await expect(page.getByRole("link", { name: welcomeMessage })).toBeVisible();
 });
 
 // After each test, log out
