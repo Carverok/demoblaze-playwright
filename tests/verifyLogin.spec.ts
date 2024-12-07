@@ -2,13 +2,11 @@ import { test, expect } from "@playwright/test";
 import { login, logout } from "../utilities/helpers/login";
 import { credentials } from "../utilities/data-set/credentials";
 
-// Before each test, log in with admin credentials
 test.beforeEach(async ({ page }) => {
   //got to home page
   await page.goto("/");
 });
 
-// After each test, log out
 test.afterEach(async ({ page }) => {
   await logout(page);
 });
