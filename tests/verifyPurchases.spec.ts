@@ -2,7 +2,6 @@ import { test, expect } from "@playwright/test";
 import { login, logout } from "../utilities/helpers/login";
 import { credentials } from "../utilities/data-set/credentials";
 import { placeOrder } from "../utilities/helpers/place-order";
-import { faker } from "@faker-js/faker";
 
 // Before each test, log in with admin credentials
 test.beforeEach(async ({ page }) => {
