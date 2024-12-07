@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 import { login, logout } from "../utilities/helpers/login";
 import { credentials } from "../utilities/data-set/credentials";
 import { placeOrder } from "../utilities/helpers/place-order";
+import { addItem } from "../utilities/helpers/cart";
 
 test.beforeEach(async ({ page }) => {
   //got to home page
@@ -31,28 +32,21 @@ test("Purchase items", async ({ page }) => {
   //navigate to the phones category
   await page.getByRole("link", { name: "Phones" }).click();
 
-  // Navigate to the Samsung Galaxy S6 product page and add it to the cart
-  await page.getByRole("link", { name: "Samsung galaxy s6" }).click();
-  await page.getByRole("link", { name: "Add to cart" }).click();
-  await page.getByRole("link", { name: "Cart", exact: true }).click();
+  // Add item to the cart
+  await addItem(page, "Samsung galaxy s6");
 
   //navigate to the laptop category
   await page.getByRole("link", { name: "Home" }).click();
   await page.getByRole("link", { name: "Laptops" }).click();
 
-  // Navigate to the Sony vaio i5 product page and add it to the cart
-  await page.getByRole("link", { name: "Sony vaio i5" }).click();
-  await page.getByRole("link", { name: "Add to cart" }).click();
-  await page.getByRole("link", { name: "Cart", exact: true }).click();
+  await addItem(page, "Sony vaio i5");
 
   //navigate to the monitor category
   await page.getByRole("link", { name: "Home" }).click();
   await page.getByRole("link", { name: "Monitors" }).click();
 
   // Navigate to the ASUS Full HD 8gb product page and add it to the cart
-  await page.getByRole("link", { name: "ASUS Full HD" }).click();
-  await page.getByRole("link", { name: "Add to cart" }).click();
-  await page.getByRole("link", { name: "Cart", exact: true }).click();
+  await addItem(page, "ASUS Full HD");
 
   //place order
   await page.getByRole("button", { name: "Place Order" }).click();
