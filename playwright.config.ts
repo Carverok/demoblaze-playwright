@@ -25,7 +25,7 @@ export default defineConfig({
   reporter: "html",
 
   // Increase test timeout
-  timeout: 350000,
+  timeout: 120000,
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {

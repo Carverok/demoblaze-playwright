@@ -1,6 +1,6 @@
-import { faker } from "@faker-js/faker"; // Import faker for generating random test data
+import { faker } from "@faker-js/faker";
 
-export async function placeOrder({ page }) {
+export async function placeOrder(page) {
   // Generate random data for the purchase form using faker
   const randomName = faker.person.firstName();
   const randomCountry = faker.location.country();
@@ -10,19 +10,16 @@ export async function placeOrder({ page }) {
   const randomYear = faker.number.int({ min: 1990, max: 2024 });
 
   // Fill in the order form with generated random data
-  await page.getByLabel("Total:").click();
-  await page.getByLabel("Total:").fill(randomName); // Fill in name
-  await page.getByLabel("Country:").click();
-  await page.getByLabel("Country:").fill(randomCountry); // Fill in country
-  await page.getByLabel("City:").click();
-  await page.getByLabel("City:").fill(randomCity); // Fill in city
-  await page.getByLabel("Credit card:").click();
-  await page.getByLabel("Credit card:").fill(randomCreditCardNumber); // Fill in credit card number
-  await page.getByLabel("Month:").click();
-  await page.getByLabel("Month:").fill(randomMonth); // Fill in month
-  await page.getByLabel("Year:").click();
-  await page.getByLabel("Year:").fill(String(randomYear)); // Fill in year
-
-  // Complete the purchase
-  await page.getByRole("button", { name: "Purchase" }).click(); // Click 'Purchase' button
+  await page.locator("#name").click();
+  await page.locator("#name").fill(randomName);
+  await page.locator("#country").click();
+  await page.locator("#country").fill(randomCountry);
+  await page.locator("#city").click();
+  await page.locator("#city").fill(randomCity);
+  await page.locator("#card").click();
+  await page.locator("#card").fill(randomCreditCardNumber);
+  await page.locator("#month").click();
+  await page.locator("#month").fill(randomMonth);
+  await page.locator("#year").click();
+  await page.locator("#year").fill(String(randomYear));
 }
