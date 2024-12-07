@@ -3,7 +3,7 @@ import { login, logout } from "../utilities/helpers/login";
 import { credentials } from "../utilities/data-set/credentials";
 
 test.beforeEach(async ({ page }) => {
-  //got to home page
+  // Go to home page
   await page.goto("/");
 });
 
@@ -24,7 +24,7 @@ test("Log in as Admin", async ({ page }) => {
   const welcomeMessage = `Welcome ${username}`;
   await login({ page, username, password });
 
-  //expect that page get element link with text Welcome admin
+  // Expect that page get element link with text Welcome admin
   await expect(page.getByRole("link", { name: welcomeMessage })).toBeVisible();
 });
 
@@ -41,6 +41,6 @@ test("Log in as User", async ({ page }) => {
   const welcomeMessage = `Welcome ${username}`;
   await login({ page, username, password });
 
-  //expect that page get element link with text Welcome test
+  // Expect that page get element link with text Welcome test
   await expect(page.getByRole("link", { name: welcomeMessage })).toBeVisible();
 });
