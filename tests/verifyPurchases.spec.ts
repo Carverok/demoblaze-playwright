@@ -5,7 +5,7 @@ import { placeOrder } from "../utilities/helpers/place-order";
 import { addItem } from "../utilities/helpers/cart";
 
 test.beforeEach(async ({ page }) => {
-  //got to home page
+  // Go to home page
   await page.goto("/");
 
   const username = credentials?.admin?.username || "admin";
@@ -13,7 +13,7 @@ test.beforeEach(async ({ page }) => {
   const welcomeMessage = `Welcome ${username}`;
   await login({ page, username, password });
 
-  //expect that page get element link with text Welcome admin
+  // Expect that page get element link with text Welcome admin
   await expect(page.getByRole("link", { name: welcomeMessage })).toBeVisible();
 });
 
@@ -21,7 +21,6 @@ test.afterEach(async ({ page }) => {
   await logout(page);
 });
 
-// Test case to purchase a phone on Demoblaze
 test("Purchase items", async ({ page }) => {
   // Add a test annotation to provide metadata
   test.info().annotations.push({
@@ -29,7 +28,7 @@ test("Purchase items", async ({ page }) => {
     description: "This test aims to verify a successful purchase on Demoblaze",
   });
 
-  //navigate to the phones category
+  // Navigate to the phones category
   await page.getByRole("link", { name: "Phones" }).click();
 
   // Add item to the cart
@@ -41,14 +40,14 @@ test("Purchase items", async ({ page }) => {
 
   await addItem(page, "Sony vaio i5");
 
-  //navigate to the monitor category
+  // Navigate to the monitor category
   await page.getByRole("link", { name: "Home" }).click();
   await page.getByRole("link", { name: "Monitors" }).click();
 
   // Navigate to the ASUS Full HD 8gb product page and add it to the cart
   await addItem(page, "ASUS Full HD");
 
-  //place order
+  // Place order
   await page.getByRole("button", { name: "Place Order" }).click();
   await placeOrder(page);
 

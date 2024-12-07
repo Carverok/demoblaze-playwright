@@ -15,5 +15,6 @@ export async function login({ page, username, password }) {
 }
 
 export async function logout(page) {
+  //click on the logout link
   await page.getByRole("link", { name: "Log out" }).click();
 }
