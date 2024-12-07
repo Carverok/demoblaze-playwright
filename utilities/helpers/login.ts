@@ -1,5 +1,5 @@
 export async function login({ page, username, password }) {
-  await page.goto("/"); // Navigate to the base URL
+  // Click on the login link
   await page.getByRole("link", { name: "Log in" }).click();
 
   // Enter username

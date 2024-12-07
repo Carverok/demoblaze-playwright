@@ -5,6 +5,9 @@ import { placeOrder } from "../utilities/helpers/place-order";
 
 // Before each test, log in with admin credentials
 test.beforeEach(async ({ page }) => {
+  //got to home page
+  await page.goto("/");
+
   const username = credentials?.admin?.username || "admin";
   const password = credentials?.admin?.password || "admin";
   await login({ page, username, password });
