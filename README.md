@@ -28,8 +28,18 @@ npm install
 ```
 
 ```sh
-# # To execute all the tests run:
+# To execute all the tests run:
 npm test
+```
+
+```sh
+# To execute purchase products test run:
+npm run test:purchase
+```
+
+```sh
+# To execute login test run:
+npm run test:purchase
 ```
 
 ```sh
