@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
-import { login, logout } from "../utilities/helpers/login";
 import { credentials } from "../utilities/data-set/credentials";
-import { placeOrder } from "../utilities/helpers/place-order";
-import { addItem } from "../utilities/helpers/cart";
+import { login, logout } from "../utilities/helpers/auth";
+import { selectCategory } from "../utilities/helpers/categories";
+import { addItem, placeOrder } from "../utilities/helpers/cart";
 
 test.beforeEach(async ({ page }) => {
   // Go to home page
@@ -28,23 +28,16 @@ test("Purchase items", async ({ page }) => {
     description: "This test aims to verify a successful purchase on Demoblaze",
   });
 
-  // Navigate to the phones category
-  await page.getByRole("link", { name: "Phones" }).click();
-
-  // Add item to the cart
+  // Add phone to the cart
+  await selectCategory(page, "Phones");
   await addItem(page, "Samsung galaxy s6");
 
-  //navigate to the laptop category
-  await page.getByRole("link", { name: "Home" }).click();
-  await page.getByRole("link", { name: "Laptops" }).click();
-
+  // Add laptop to the cart
+  await selectCategory(page, "Laptops");
   await addItem(page, "Sony vaio i5");
 
-  // Navigate to the monitor category
-  await page.getByRole("link", { name: "Home" }).click();
-  await page.getByRole("link", { name: "Monitors" }).click();
-
-  // Navigate to the ASUS Full HD 8gb product page and add it to the cart
+  // Add monitor to the cart
+  await selectCategory(page, "Monitors");
   await addItem(page, "ASUS Full HD");
 
   // Place order
