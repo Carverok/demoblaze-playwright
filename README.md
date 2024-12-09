@@ -39,7 +39,7 @@ npm run test:purchase
 
 ```sh
 # To execute login test run:
-npm run test:purchase
+npm run test:login
 ```
 
 ```sh
