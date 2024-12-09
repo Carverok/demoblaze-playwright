@@ -21,6 +21,7 @@ test.beforeEach(async ({ page }) => {
 test.afterEach(async ({ page }) => {
   await logout(page);
 });
+
 test("Verify purchase details", async ({ page }) => {
   // Add a test annotation to provide metadata
   test.info().annotations.push({
