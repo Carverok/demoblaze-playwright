@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { login, logout } from "../utilities/helpers/login";
-import { credentials } from "../utilities/data-set/credentials";
+import { login, logout } from "../utilities/helpers/auth";
+import { credentials } from "../utilities/data-set/users";
 
 test.beforeEach(async ({ page }) => {
   // Go to home page
@@ -36,8 +36,8 @@ test("Log in as User", async ({ page }) => {
       "This test aims to verify a successful login as a normal user on Demoblaze",
   });
 
-  const username = credentials?.user?.username || "test";
-  const password = credentials?.user?.password || "test";
+  const username = credentials?.normal?.username || "test";
+  const password = credentials?.normal?.password || "test";
   const welcomeMessage = `Welcome ${username}`;
   await login({ page, username, password });
 

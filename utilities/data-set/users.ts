@@ -3,7 +3,7 @@ export const credentials = {
     username: "admin",
     password: "admin",
   },
-  user: {
+  normal: {
     username: "test",
     password: "test",
   },
