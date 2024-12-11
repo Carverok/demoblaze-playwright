@@ -1,6 +1,13 @@
-export async function addItem(page, item) {
+export async function addItem(page, item, bill) {
   // Click on the item and add it to the cart
   await page.getByRole("link", { name: item }).click();
+
+  // Take the price of the item and add it to the bill
+  const stringPrice = await page.locator("h3.price-container").textContent();
+  const numberPrice = parseFloat(stringPrice.replace(/[$,]+/g, ""));
+  bill.addProduct({ name: item, price: numberPrice });
+
+  // Continue shopping
   await page.getByRole("link", { name: "Add to cart" }).click();
   await page.getByRole("link", { name: "Cart", exact: true }).click();
 }

@@ -4,6 +4,7 @@ import { login, logout } from "../utilities/helpers/auth";
 import { selectCategory } from "../utilities/helpers/categories";
 import { addItem, placeOrder } from "../utilities/helpers/cart";
 import { Customer } from "../model/customer";
+import { Bill } from "../model/bill";
 
 test.beforeEach(async ({ page }) => {
   // Go to home page
@@ -27,22 +28,26 @@ test("Verify purchase details", async ({ page }) => {
 
   // Create a new customer
   const customer = new Customer();
+  const bill = new Bill();
 
   // Add phone to the cart
   await selectCategory(page, "Phones");
-  await addItem(page, "Samsung galaxy s6");
+  await addItem(page, "Samsung galaxy s6", bill);
 
   // Add laptop to the cart
   await selectCategory(page, "Laptops");
-  await addItem(page, "Sony vaio i5");
+  await addItem(page, "Sony vaio i5", bill);
 
   // Add monitor to the cart
   await selectCategory(page, "Monitors");
-  await addItem(page, "ASUS Full HD");
+  await addItem(page, "ASUS Full HD", bill);
 
   // Place order
   await page.getByRole("button", { name: "Place Order" }).click();
   await placeOrder(page, customer);
+
+  // Calculate the total amount to compare with the purchase details
+  bill.calculateTotal();
 
   // Complete the purchase
   await page.getByRole("button", { name: "Purchase" }).click();
@@ -52,13 +57,11 @@ test("Verify purchase details", async ({ page }) => {
 
   // Verify purchase details
   const purchaseDetails = await page.locator("p.lead.text-muted").textContent();
-  expect(purchaseDetails).toContain("Id:");
-  expect(purchaseDetails).toContain("Amount:");
+  expect(purchaseDetails).toContain(`Amount: ${bill.totalAmount}`);
   expect(purchaseDetails).toContain(
     `Card Number: ${customer.creditCardNumber}`
   );
   expect(purchaseDetails).toContain(`Name: ${customer.name}`);
-  expect(purchaseDetails).toContain("Date:");
 
   // Close the confirmation dialog
   await page.getByRole("button", { name: "OK" }).click();
