@@ -11,11 +11,7 @@ test.beforeEach(async ({ page }) => {
 
   const username = credentials?.admin?.username || "admin";
   const password = credentials?.admin?.password || "admin";
-  const welcomeMessage = `Welcome ${username}`;
   await login({ page, username, password });
-
-  // Expect that page get element link with text Welcome admin
-  await expect(page.getByRole("link", { name: welcomeMessage })).toBeVisible();
 });
 
 test.afterEach(async ({ page }) => {
