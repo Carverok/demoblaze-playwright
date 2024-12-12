@@ -33,13 +33,18 @@ npm test
 ```
 
 ```sh
+# To execute login tests run:
+npm run test:login
+```
+
+```sh
 # To execute purchase products test run:
 npm run test:purchase
 ```
 
 ```sh
-# To execute login test run:
-npm run test:login
+# To execute add and remove items to cart test run:
+npm run test:cart
 ```
 
 ```sh
