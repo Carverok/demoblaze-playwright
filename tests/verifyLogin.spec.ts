@@ -11,7 +11,7 @@ test.afterEach(async ({ page }) => {
   await logout(page);
 });
 
-test("Log in as Admin", async ({ page }) => {
+test("Verify login, admin user", async ({ page }) => {
   // Add a test annotation to provide metadata
   test.info().annotations.push({
     type: "Test",
@@ -28,7 +28,7 @@ test("Log in as Admin", async ({ page }) => {
   await expect(page.getByRole("link", { name: welcomeMessage })).toBeVisible();
 });
 
-test("Log in as User", async ({ page }) => {
+test("Verify login, test user", async ({ page }) => {
   // Add a test annotation to provide metadata
   test.info().annotations.push({
     type: "Test",
