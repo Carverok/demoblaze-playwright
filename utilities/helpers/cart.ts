@@ -1,4 +1,16 @@
-export async function addItem(page, item, bill) {
+export async function addItem(page, item) {
+  // Click on the item and add it to the cart
+  await page.getByRole("link", { name: item }).click();
+  await page.getByRole("link", { name: "Add to cart" }).click();
+  await page.getByRole("link", { name: "Cart", exact: true }).click();
+}
+
+export async function removeItem(page, item) {
+  // Remove item from the cart
+  await page.getByRole("row", { name: item }).getByRole("link").click();
+}
+
+export async function addItemForPurchase(page, item, bill) {
   // Click on the item and add it to the cart
   await page.getByRole("link", { name: item }).click();
 
@@ -10,10 +22,6 @@ export async function addItem(page, item, bill) {
   // Continue shopping
   await page.getByRole("link", { name: "Add to cart" }).click();
   await page.getByRole("link", { name: "Cart", exact: true }).click();
-}
-
-export async function removeItem(page, item) {
-  // Remove item from the cart
 }
 
 export async function placeOrder(page, customer) {

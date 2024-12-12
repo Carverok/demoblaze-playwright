@@ -7,6 +7,7 @@
     "postinstall": "playwright install",
     "test": "playwright test",
     "test:login": "playwright test tests/verifyLogin.spec.ts",
+    "test:cart": "playwright test tests/verifyCart.spec.ts",
     "test:purchase": "playwright test tests/verifyPurchases.spec.ts",
     "report": "playwright show-report"
   },
