@@ -16,7 +16,7 @@ test("Log in as Admin", async ({ page }) => {
   test.info().annotations.push({
     type: "Test",
     description:
-      "This test aims to verify a successful login as an administrator user on Demoblaze",
+      "This test aims to verify a successful login as an administrator user",
   });
 
   const username = credentials?.admin?.username || "admin";
@@ -32,8 +32,7 @@ test("Log in as User", async ({ page }) => {
   // Add a test annotation to provide metadata
   test.info().annotations.push({
     type: "Test",
-    description:
-      "This test aims to verify a successful login as a normal user on Demoblaze",
+    description: "This test aims to verify a successful login as a normal user",
   });
 
   const username = credentials?.normal?.username || "test";
