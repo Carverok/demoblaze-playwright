@@ -14,8 +14,8 @@ test("Verify cart, add and delete items", async ({ page }) => {
   // Go to home page
   await page.goto("/");
 
-  const username = credentials?.normal?.username || "admin";
-  const password = credentials?.normal?.password || "admin";
+  const username = credentials?.normal?.username || "test";
+  const password = credentials?.normal?.password || "test";
   const welcomeMessage = `Welcome ${username}`;
   await login({ page, username, password });
 

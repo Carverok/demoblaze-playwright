@@ -8,6 +8,7 @@
     "test": "playwright test",
     "test:login": "playwright test tests/verifyLogin.spec.ts",
     "test:cart": "playwright test tests/verifyCart.spec.ts",
+    "test:contact": "playwright test tests/verifyContact.spec.ts",
     "test:purchase": "playwright test tests/verifyPurchases.spec.ts",
     "report": "playwright show-report"
   },
