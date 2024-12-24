@@ -48,6 +48,11 @@ npm run test:cart
 ```
 
 ```sh
+# To execute send conctact message test run:
+npm run test:contact
+```
+
+```sh
 # To open last HTML report run:
 npm run report
 ```
