@@ -29,9 +29,12 @@ test("Verify contact, send email", async ({ page }) => {
   const contact = new Contact();
   await newMessage(page, contact);
 
+  // catch dialog before click on send message button
   page.once("dialog", (dialog) => {
     dialog.dismiss().catch(() => {});
   });
+
+  // Click on send message button
   await page.getByRole("button", { name: "Send message" }).click();
 
   // Logout

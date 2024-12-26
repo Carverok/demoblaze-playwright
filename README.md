@@ -53,6 +53,11 @@ npm run test:contact
 ```
 
 ```sh
+# To execute about us test run:
+npm run test:about
+```
+
+```sh
 # To open last HTML report run:
 npm run report
 ```
