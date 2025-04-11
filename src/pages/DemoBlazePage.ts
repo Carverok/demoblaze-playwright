@@ -19,7 +19,7 @@ export class DemoBlazePage {
     this.logOutLink = page.getByRole("link", { name: "Log out" });
   }
 
-  async goto() {
+  async goTo() {
     await this.page.goto("https://www.demoblaze.com/");
   }
 

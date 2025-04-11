@@ -5,7 +5,7 @@ import { DemoBlazePage } from "../src/pages/DemoBlazePage";
 test.beforeEach(async ({ page }) => {
   // Go to home page before each test
   const demoBlazePage = new DemoBlazePage(page);
-  await demoBlazePage.goto();
+  await demoBlazePage.goTo();
 });
 
 test.afterEach(async ({ page }) => {
