@@ -2,6 +2,8 @@ import { expect, type Locator, type Page } from "@playwright/test";
 
 export class DemoBlazePage {
   readonly page: Page;
+
+  // Locators for login elements
   readonly logInLink: Locator;
   readonly usernameInput: Locator;
   readonly passwordInput: Locator;
@@ -9,14 +11,28 @@ export class DemoBlazePage {
   readonly homeLink: Locator;
   readonly logOutLink: Locator;
 
+  //locators for about us elements
+  readonly aboutUsLink: Locator;
+  readonly aboutUsModal: Locator;
+  readonly aboutUsModalCloseButton: Locator;
+
   constructor(page: Page) {
     this.page = page;
+
+    // Initialize locators for login elements
     this.logInLink = page.getByRole("link", { name: "Log in" });
     this.usernameInput = page.locator("#loginusername");
     this.passwordInput = page.locator("#loginpassword");
     this.logInButton = page.getByRole("button", { name: "Log in" });
     this.homeLink = page.getByRole("link", { name: "Home" });
     this.logOutLink = page.getByRole("link", { name: "Log out" });
+
+    // Initialize locators for about us elements
+    this.aboutUsLink = page.getByRole("link", { name: "About us" });
+    this.aboutUsModal = page.locator("#videoModal");
+    this.aboutUsModalCloseButton = page
+      .locator("#videoModal")
+      .getByText("Close", { exact: true });
   }
 
   async goTo() {
@@ -40,5 +56,11 @@ export class DemoBlazePage {
   async logOut() {
     await this.homeLink.click();
     await this.logOutLink.click();
+  }
+
+  async verifyAboutUsModal() {
+    await this.aboutUsLink.click();
+    await expect(this.aboutUsModal).toBeVisible();
+    await this.aboutUsModalCloseButton.click();
   }
 }

@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { credentials } from "../src/utilities/data-set/users";
 import { login, logout } from "../src/utilities/helpers/auth";
+import { DemoBlazePage } from "../src/pages/DemoBlazePage";
 
 test("Verify about us modal", async ({ page }) => {
   // Add a test annotation to provide metadata
@@ -10,22 +11,18 @@ test("Verify about us modal", async ({ page }) => {
   });
 
   // Go to home page
-  await page.goto("/");
+  const demoBlazePage = new DemoBlazePage(page);
+  await demoBlazePage.goTo();
 
+  // Login as a test user
   const username = credentials?.normal?.username || "test";
   const password = credentials?.normal?.password || "test";
-  const welcomeMessage = `Welcome ${username}`;
-  await login({ page, username, password });
-
-  // Expect that page get element link with text Welcome admin
-  await expect(page.getByRole("link", { name: welcomeMessage })).toBeVisible();
+  await demoBlazePage.logIn(username, password);
+  await demoBlazePage.verifyLogin(username);
 
   // Click on about us link
-  await page.getByRole("link", { name: "About us" }).click();
-
-  // Close the modal
-  await page.locator("#videoModal").getByText("Close", { exact: true }).click();
+  await demoBlazePage.verifyAboutUsModal();
 
   // Logout
-  await logout(page);
+  await demoBlazePage.logOut();
 });
