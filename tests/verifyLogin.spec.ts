@@ -1,6 +1,6 @@
 import { test } from "@playwright/test";
-import { credentials } from "../utilities/data-set/users";
-import { DemoBlazePage } from "../pages/DemoBlazePage";
+import { credentials } from "../src/utilities/data-set/users";
+import { DemoBlazePage } from "../src/pages/DemoBlazePage";
 
 test.beforeEach(async ({ page }) => {
   // Go to home page before each test

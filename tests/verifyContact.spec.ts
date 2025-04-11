@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
-import { credentials } from "../utilities/data-set/users";
-import { login, logout } from "../utilities/helpers/auth";
-import { Contact } from "../model/contact";
-import { newMessage } from "../utilities/helpers/contact";
+import { credentials } from "../src/utilities/data-set/users";
+import { login, logout } from "../src/utilities/helpers/auth";
+import { Contact } from "../src/model/contact";
+import { newMessage } from "../src/utilities/helpers/contact";
 
 test("Verify contact, send email", async ({ page }) => {
   // Add a test annotation to provide metadata

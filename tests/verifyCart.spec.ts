@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
-import { credentials } from "../utilities/data-set/users";
-import { login, logout } from "../utilities/helpers/auth";
-import { selectCategory } from "../utilities/helpers/categories";
-import { addItem, removeItem } from "../utilities/helpers/cart";
+import { credentials } from "../src/utilities/data-set/users";
+import { login, logout } from "../src/utilities/helpers/auth";
+import { selectCategory } from "../src/utilities/helpers/categories";
+import { addItem, removeItem } from "../src/utilities/helpers/cart";
 
 test("Verify cart, add and delete items", async ({ page }) => {
   // Add a test annotation to provide metadata

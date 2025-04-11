@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { credentials } from "../utilities/data-set/users";
-import { login, logout } from "../utilities/helpers/auth";
+import { credentials } from "../src/utilities/data-set/users";
+import { login, logout } from "../src/utilities/helpers/auth";
 
 test("Verify about us modal", async ({ page }) => {
   // Add a test annotation to provide metadata

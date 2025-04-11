@@ -1,10 +1,13 @@
 import { test, expect } from "@playwright/test";
-import { Customer } from "../model/customer";
-import { Bill } from "../model/bill";
-import { credentials } from "../utilities/data-set/users";
-import { login, logout } from "../utilities/helpers/auth";
-import { selectCategory } from "../utilities/helpers/categories";
-import { addItemForPurchase, placeOrder } from "../utilities/helpers/cart";
+import { Customer } from "../src/model/customer";
+import { Bill } from "../src/model/bill";
+import { credentials } from "../src/utilities/data-set/users";
+import { login, logout } from "../src/utilities/helpers/auth";
+import { selectCategory } from "../src/utilities/helpers/categories";
+import {
+  addItemForPurchase,
+  placeOrder,
+} from "../src/utilities/helpers/cart";
 
 test("Verify cart, place order and purchase details", async ({ page }) => {
   // Add a test annotation to provide metadata
