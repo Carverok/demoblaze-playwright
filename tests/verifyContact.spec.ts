@@ -1,8 +1,7 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
 import { credentials } from "../src/utilities/data-set/users";
-import { login, logout } from "../src/utilities/helpers/auth";
 import { Contact } from "../src/model/contact";
-import { newMessage } from "../src/utilities/helpers/contact";
+import { DemoBlazePage } from "../src/pages/demoBlazePage";
 
 test("Verify contact, send email", async ({ page }) => {
   // Add a test annotation to provide metadata
@@ -11,32 +10,23 @@ test("Verify contact, send email", async ({ page }) => {
     description: "This test aims to verify contact functionality",
   });
 
-  // Go to home page
-  await page.goto("/");
-
+  // Log in as administrator user
   const username = credentials?.admin?.username || "admin";
   const password = credentials?.admin?.password || "admin";
-  const welcomeMessage = `Welcome ${username}`;
-  await login({ page, username, password });
+  const demoBlazePage = new DemoBlazePage(page);
+  await demoBlazePage.goTo();
+  await demoBlazePage.logIn(username, password);
+  await demoBlazePage.verifyLogin(username);
 
-  // Expect that page get element link with text Welcome admin
-  await expect(page.getByRole("link", { name: welcomeMessage })).toBeVisible();
-
-  // Click on contact link
-  await page.getByRole("link", { name: "Contact" }).click();
-
-  // Fill new message form
+  // Verify and fill contact form
   const contact = new Contact();
-  await newMessage(page, contact);
-
-  // catch dialog before click on send message button
-  page.once("dialog", (dialog) => {
-    dialog.dismiss().catch(() => {});
-  });
-
-  // Click on send message button
-  await page.getByRole("button", { name: "Send message" }).click();
+  await demoBlazePage.verifyContactModal();
+  await demoBlazePage.fillContactForm(
+    contact.email,
+    contact.name,
+    contact.message
+  );
 
   // Logout
-  await logout(page);
+  await demoBlazePage.logOut();
 });

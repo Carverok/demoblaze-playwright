@@ -16,6 +16,15 @@ export class DemoBlazePage {
   readonly aboutUsModal: Locator;
   readonly aboutUsModalCloseButton: Locator;
 
+  //locartors for contact elements
+  readonly contactLink: Locator;
+  readonly contactModal: Locator;
+  readonly contactEmailInput: Locator;
+  readonly contactNameInput: Locator;
+  readonly contactMessageInput: Locator;
+  readonly contactModalCloseButton: Locator;
+  readonly contactSendButton: Locator;
+
   constructor(page: Page) {
     this.page = page;
 
@@ -33,6 +42,17 @@ export class DemoBlazePage {
     this.aboutUsModalCloseButton = page
       .locator("#videoModal")
       .getByText("Close", { exact: true });
+
+    // Initialize locators for contact elements
+    this.contactLink = page.getByRole("link", { name: "Contact" });
+    this.contactModal = page.locator("#exampleModal");
+    this.contactEmailInput = page.locator("#recipient-email");
+    this.contactNameInput = page.locator("#recipient-name");
+    this.contactMessageInput = page.locator("#message-text");
+    this.contactModalCloseButton = page
+      .locator("#exampleModal")
+      .getByText("Close", { exact: true });
+    this.contactSendButton = page.getByRole("button", { name: "Send message" });
   }
 
   async goTo() {
@@ -62,5 +82,28 @@ export class DemoBlazePage {
     await this.aboutUsLink.click();
     await expect(this.aboutUsModal).toBeVisible();
     await this.aboutUsModalCloseButton.click();
+  }
+
+  async verifyContactModal() {
+    await this.homeLink.click();
+    await this.contactLink.click();
+    await expect(this.contactModal).toBeVisible();
+    await this.contactModalCloseButton.click();
+  }
+
+  async fillContactForm(email: string, name: string, message: string) {
+    await this.homeLink.click();
+    await this.contactLink.click();
+    await expect(this.contactModal).toBeVisible();
+    await this.contactEmailInput.fill(email);
+    await this.contactNameInput.fill(name);
+    await this.contactMessageInput.fill(message);
+
+    // catch dialog before click on send message button
+    this.page.once("dialog", (dialog) => {
+      dialog.dismiss().catch(() => {});
+    });
+
+    await this.contactSendButton.click();
   }
 }
