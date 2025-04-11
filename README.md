@@ -1,6 +1,6 @@
 # Demoblaze Playwright
 
-Playwright automation project for https://www.demoblaze.com/
+Playwright automation project for [DemoBlaze](https://www.demoblaze.com) this project uses the Page Object Model (POM) design pattern for better test maintainability and scalability. It also integrates faker.js to generate dynamic test data for realistic user simulations.
 
 ## System requirements
 
