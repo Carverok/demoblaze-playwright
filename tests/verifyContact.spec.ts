@@ -11,10 +11,10 @@ test("Verify contact, send email", async ({ page }) => {
   });
 
   // Log in as administrator user
-  const username = credentials?.admin?.username || "admin";
-  const password = credentials?.admin?.password || "admin";
   const demoBlazePage = new DemoBlazePage(page);
   await demoBlazePage.goTo();
+  const username = credentials?.admin?.username || "admin";
+  const password = credentials?.admin?.password || "admin";
   await demoBlazePage.logIn(username, password);
   await demoBlazePage.verifyLogin(username);
 
