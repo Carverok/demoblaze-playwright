@@ -2,12 +2,8 @@ import { test, expect } from "@playwright/test";
 import { Customer } from "../src/model/customer";
 import { Bill } from "../src/model/bill";
 import { credentials } from "../src/utilities/data-set/users";
-import { login, logout } from "../src/utilities/helpers/auth";
-import { selectCategory } from "../src/utilities/helpers/categories";
-import {
-  addItemForPurchase,
-  placeOrder,
-} from "../src/utilities/helpers/cart";
+import { DemoBlazePage } from "../src/pages/demoBlazePage";
+import { addItemForPurchase, placeOrder } from "../src/utilities/helpers/cart";
 
 test("Verify cart, place order and purchase details", async ({ page }) => {
   // Add a test annotation to provide metadata
@@ -17,27 +13,27 @@ test("Verify cart, place order and purchase details", async ({ page }) => {
       "This test aims to verify the place order functionaliy and the purchase details",
   });
 
-  // Go to home page
-  await page.goto("/");
-
   const username = credentials?.admin?.username || "admin";
   const password = credentials?.admin?.password || "admin";
-  await login({ page, username, password });
-
-  // Create a new customer
   const customer = new Customer();
   const bill = new Bill();
+  const demoBlazePage = new DemoBlazePage(page);
+
+  // Go to home page
+  await demoBlazePage.goTo();
+  await demoBlazePage.logIn(username, password);
+  await demoBlazePage.verifyLogin(username);
 
   // Add phone to the cart
-  await selectCategory(page, "Phones");
+  await demoBlazePage.selectCategory("Phones");
   await addItemForPurchase(page, "Samsung galaxy s6", bill);
 
   // Add laptop to the cart
-  await selectCategory(page, "Laptops");
+  await demoBlazePage.selectCategory("Laptops");
   await addItemForPurchase(page, "Sony vaio i5", bill);
 
   // Add monitor to the cart
-  await selectCategory(page, "Monitors");
+  await demoBlazePage.selectCategory("Monitors");
   await addItemForPurchase(page, "ASUS Full HD", bill);
 
   // Place order
@@ -65,5 +61,5 @@ test("Verify cart, place order and purchase details", async ({ page }) => {
   await page.getByRole("button", { name: "OK" }).click();
 
   // Logout
-  await logout(page);
+  await demoBlazePage.logOut();
 });

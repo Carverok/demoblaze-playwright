@@ -12,20 +12,17 @@ test("Verify contact, send email", async ({ page }) => {
 
   // Log in as administrator user
   const demoBlazePage = new DemoBlazePage(page);
-  await demoBlazePage.goTo();
   const username = credentials?.admin?.username || "admin";
   const password = credentials?.admin?.password || "admin";
+
+  await demoBlazePage.goTo();
   await demoBlazePage.logIn(username, password);
   await demoBlazePage.verifyLogin(username);
 
   // Verify and fill contact form
   const contact = new Contact();
   await demoBlazePage.verifyContactModal();
-  await demoBlazePage.fillContactForm(
-    contact.email,
-    contact.name,
-    contact.message
-  );
+  await demoBlazePage.fillContactForm(contact);
 
   // Logout
   await demoBlazePage.logOut();

@@ -9,13 +9,12 @@ test("Verify about us modal", async ({ page }) => {
     description: "This test aims to verify the about us modal",
   });
 
-  // Go to home page
-  const demoBlazePage = new DemoBlazePage(page);
-  await demoBlazePage.goTo();
-
-  // Login as a test user
   const username = credentials?.normal?.username || "test";
   const password = credentials?.normal?.password || "test";
+  const demoBlazePage = new DemoBlazePage(page);
+
+  // Login as a test user
+  await demoBlazePage.goTo();
   await demoBlazePage.logIn(username, password);
   await demoBlazePage.verifyLogin(username);
 

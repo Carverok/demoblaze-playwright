@@ -1,4 +1,5 @@
 import { expect, type Locator, type Page } from "@playwright/test";
+import { Contact } from "../model/contact";
 
 export class DemoBlazePage {
   readonly page: Page;
@@ -24,6 +25,11 @@ export class DemoBlazePage {
   readonly contactMessageInput: Locator;
   readonly contactModalCloseButton: Locator;
   readonly contactSendButton: Locator;
+
+  //Locator for category elements
+  readonly phonesCategoryLink: Locator;
+  readonly laptopsCategoryLink: Locator;
+  readonly monitorsCategoryLink: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -53,6 +59,11 @@ export class DemoBlazePage {
       .locator("#exampleModal")
       .getByText("Close", { exact: true });
     this.contactSendButton = page.getByRole("button", { name: "Send message" });
+
+    // Initialize locators for category elements
+    this.phonesCategoryLink = page.getByRole("link", { name: "Phones" });
+    this.laptopsCategoryLink = page.getByRole("link", { name: "Laptops" });
+    this.monitorsCategoryLink = page.getByRole("link", { name: "Monitors" });
   }
 
   async goTo() {
@@ -91,13 +102,13 @@ export class DemoBlazePage {
     await this.contactModalCloseButton.click();
   }
 
-  async fillContactForm(email: string, name: string, message: string) {
+  async fillContactForm(contact: Contact) {
     await this.homeLink.click();
     await this.contactLink.click();
     await expect(this.contactModal).toBeVisible();
-    await this.contactEmailInput.fill(email);
-    await this.contactNameInput.fill(name);
-    await this.contactMessageInput.fill(message);
+    await this.contactEmailInput.fill(contact.email);
+    await this.contactNameInput.fill(contact.name);
+    await this.contactMessageInput.fill(contact.message);
 
     // catch dialog before click on send message button
     this.page.once("dialog", (dialog) => {
@@ -105,5 +116,29 @@ export class DemoBlazePage {
     });
 
     await this.contactSendButton.click();
+  }
+
+  async categorytClick(category: string) {
+    // use switch case to select category
+    switch (category) {
+      case "Phones":
+        await this.phonesCategoryLink.click();
+        break;
+      case "Laptops":
+        await this.laptopsCategoryLink.click();
+        break;
+      case "Monitors":
+        await this.monitorsCategoryLink.click();
+        break;
+      default:
+        throw new Error(`Unknown category: ${category}`);
+    }
+  }
+
+  async selectCategory(category: string) {
+    await this.homeLink.click();
+    await this.categorytClick(category);
+    await expect(this.page.getByRole("link", { name: category })).toBeVisible();
+    await expect(this.page.getByText(category)).toBeVisible();
   }
 }
