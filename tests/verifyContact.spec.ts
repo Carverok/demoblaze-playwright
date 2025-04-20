@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
 import { credentials } from "../src/utilities/data-set/users";
 import { Contact } from "../src/model/contact";
-import { DemoBlazePage } from "../src/pages/demoBlazePage";
+import { HomePage } from "../src/pages/homePage";
 
 test("Verify contact, send email", async ({ page }) => {
   // Add a test annotation to provide metadata
@@ -11,19 +11,19 @@ test("Verify contact, send email", async ({ page }) => {
   });
 
   // Log in as administrator user
-  const demoBlazePage = new DemoBlazePage(page);
+  const homePage = new HomePage(page);
   const username = credentials?.admin?.username || "admin";
   const password = credentials?.admin?.password || "admin";
 
-  await demoBlazePage.goTo();
-  await demoBlazePage.logIn(username, password);
-  await demoBlazePage.verifyLogin(username);
+  await homePage.goTo();
+  await homePage.logIn(username, password);
+  await homePage.checkLogin(username);
 
   // Verify and fill contact form
   const contact = new Contact();
-  await demoBlazePage.verifyContactModal();
-  await demoBlazePage.fillContactForm(contact);
+  await homePage.checkContactModal();
+  await homePage.fillContactForm(contact);
 
   // Logout
-  await demoBlazePage.logOut();
+  await homePage.logOut();
 });

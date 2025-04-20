@@ -1,17 +1,17 @@
 import { test } from "@playwright/test";
 import { credentials } from "../src/utilities/data-set/users";
-import { DemoBlazePage } from "../src/pages/demoBlazePage";
+import { HomePage } from "../src/pages/homePage";
 
 test.beforeEach(async ({ page }) => {
   // Go to home page before each test
-  const demoBlazePage = new DemoBlazePage(page);
-  await demoBlazePage.goTo();
+  const homePage = new HomePage(page);
+  await homePage.goTo();
 });
 
 test.afterEach(async ({ page }) => {
   // Logout after each test
-  const demoBlazePage = new DemoBlazePage(page);
-  await demoBlazePage.logOut();
+  const homePage = new HomePage(page);
+  await homePage.logOut();
 });
 
 test("Verify login, admin user", async ({ page }) => {
@@ -24,9 +24,9 @@ test("Verify login, admin user", async ({ page }) => {
 
   const username = credentials?.admin?.username || "admin";
   const password = credentials?.admin?.password || "admin";
-  const demoBlazePage = new DemoBlazePage(page);
-  await demoBlazePage.logIn(username, password);
-  await demoBlazePage.verifyLogin(username);
+  const homePage = new HomePage(page);
+  await homePage.logIn(username, password);
+  await homePage.checkLogin(username);
 });
 
 test("Verify login, test user", async ({ page }) => {
@@ -38,7 +38,7 @@ test("Verify login, test user", async ({ page }) => {
 
   const username = credentials?.normal?.username || "test";
   const password = credentials?.normal?.password || "test";
-  const demoBlazePage = new DemoBlazePage(page);
-  await demoBlazePage.logIn(username, password);
-  await demoBlazePage.verifyLogin(username);
+  const homePage = new HomePage(page);
+  await homePage.logIn(username, password);
+  await homePage.checkLogin(username);
 });

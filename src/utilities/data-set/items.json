@@ -1,0 +1,50 @@
+{
+  "name": "Items",
+  "items": [
+    {
+      "id": 1,
+      "category": "Phones",
+      "name": "Samsung galaxy s6",
+      "price": 360.0
+    },
+    {
+      "id": 2,
+      "category": "Phones",
+      "name": "Nokia lumia 1520",
+      "price": 820.0
+    },
+    { "id": 3, "category": "Phones", "name": "Nexus 6", "price": 650 },
+    {
+      "id": 4,
+      "category": "Phones",
+      "name": "Samsung galaxy s7",
+      "price": 800.0
+    },
+    { "id": 5, "category": "Phones", "name": "Iphone 6 32gb", "price": 790.0 },
+    { "id": 6, "category": "Phones", "name": "Sony xperia z5", "price": 320.0 },
+    { "id": 7, "category": "Phones", "name": "HTC One M9", "price": 700.0 },
+    { "id": 8, "category": "Laptops", "name": "Sony vaio i5", "price": 790.0 },
+    { "id": 9, "category": "Laptops", "name": "Sony vaio i7", "price": 790.0 },
+    {
+      "id": 10,
+      "category": "Monitors",
+      "name": "Apple monitor 24",
+      "price": 400.0
+    },
+    { "id": 11, "category": "Laptops", "name": "MacBook air", "price": 700.0 },
+    { "id": 12, "category": "Laptops", "name": "Dell i7 8gb", "price": 700.0 },
+    {
+      "id": 13,
+      "category": "Laptops",
+      "name": "2017 Dell 15.6 Inch",
+      "price": 700.0
+    },
+    {
+      "id": 14,
+      "category": "Monitors",
+      "name": "ASUS Full HD",
+      "price": 230.0
+    },
+    { "id": 15, "category": "Laptops", "name": "MacBook Pro", "price": 1100.0 }
+  ]
+}

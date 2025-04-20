@@ -1,6 +1,6 @@
 import { test } from "@playwright/test";
 import { credentials } from "../src/utilities/data-set/users";
-import { DemoBlazePage } from "../src/pages/demoBlazePage";
+import { HomePage } from "../src/pages/homePage";
 
 test("Verify about us modal", async ({ page }) => {
   // Add a test annotation to provide metadata
@@ -11,16 +11,16 @@ test("Verify about us modal", async ({ page }) => {
 
   const username = credentials?.normal?.username || "test";
   const password = credentials?.normal?.password || "test";
-  const demoBlazePage = new DemoBlazePage(page);
+  const homePage = new HomePage(page);
 
   // Login as a test user
-  await demoBlazePage.goTo();
-  await demoBlazePage.logIn(username, password);
-  await demoBlazePage.verifyLogin(username);
+  await homePage.goTo();
+  await homePage.logIn(username, password);
+  await homePage.checkLogin(username);
 
   // Click on about us link
-  await demoBlazePage.verifyAboutUsModal();
+  await homePage.checkAboutUsModal();
 
   // Logout
-  await demoBlazePage.logOut();
+  await homePage.logOut();
 });
