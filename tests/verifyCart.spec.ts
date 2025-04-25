@@ -35,7 +35,7 @@ test("Verify cart, add and delete items", async ({ page }) => {
     await item.addItemToCart();
   }
 
-  // Go to cart page and add products to the cart
+  // Go to cart page and check products in the cart
   await cartPage.goTo();
   await cartPage.checkCartTitle("Products");
   await cartPage.checkCartProducts(ramdomPurchase);

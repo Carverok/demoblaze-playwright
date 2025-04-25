@@ -16,6 +16,7 @@ export class RamdomPurchase {
     }
 
     // Now pick the first 5 numbers for the loop
+    // Loop through the first 5 numbers and create products
     for (let i = 0; i < 5; i++) {
       const product = new Product();
       const uniqueNumber = numbers[i];

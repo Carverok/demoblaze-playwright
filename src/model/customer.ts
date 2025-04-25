@@ -14,6 +14,6 @@ export class Customer {
     this.city = faker.location.city();
     this.creditCardNumber = faker.finance.creditCardNumber();
     this.month = faker.date.month({ context: true });
-    this.year = faker.number.int({ min: 1990, max: 2024 });
+    this.year = faker.number.int({ min: 1990, max: 2025 });
   }
 }

@@ -1,9 +1,11 @@
-import { test, expect } from "@playwright/test";
-import { Customer } from "../src/model/customer";
-import { Bill } from "../src/model/bill";
+import { test } from "@playwright/test";
 import { credentials } from "../src/utilities/data-set/users";
 import { HomePage } from "../src/pages/homePage";
-import { addItemForPurchase, placeOrder } from "../src/utilities/helpers/cart";
+import { RamdomPurchase } from "../src/utilities/helpers/ramdomPurchase";
+import { Categories } from "../src/pages/components/categories";
+import { Item } from "../src/pages/components/item";
+import { CartPage } from "../src/pages/cartPage";
+import { Customer } from "../src/model/customer";
 
 test("Verify cart, place order and purchase details", async ({ page }) => {
   // Add a test annotation to provide metadata
@@ -15,51 +17,48 @@ test("Verify cart, place order and purchase details", async ({ page }) => {
 
   const username = credentials?.admin?.username || "admin";
   const password = credentials?.admin?.password || "admin";
+  const ramdomPurchase = new RamdomPurchase();
   const customer = new Customer();
-  const bill = new Bill();
+
   const homePage = new HomePage(page);
+  const categories = new Categories(page);
+  const item = new Item(page);
+  const cartPage = new CartPage(page);
 
   // Go to home page
   await homePage.goTo();
   await homePage.logIn(username, password);
   await homePage.checkLogin(username);
 
-  // // Add phone to the cart
-  // // await homePage.selectCategory("Phones");
-  // await addItemForPurchase(page, "Samsung galaxy s6", bill);
+  // Select random items and add them to the cart
+  for (const product of ramdomPurchase.products) {
+    await homePage.homeLink.click();
+    await categories.selectCategory(product.category);
+    await item.selectItem(product.itemName);
+    await item.addItemToCart();
+  }
 
-  // // Add laptop to the cart
-  // // await homePage.selectCategory("Laptops");
-  // await addItemForPurchase(page, "Sony vaio i5", bill);
+  // Return to the home page
+  await homePage.homeLink.click();
 
-  // // Add monitor to the cart
-  // // await homePage.selectCategory("Monitors");
-  // await addItemForPurchase(page, "ASUS Full HD", bill);
+  // Go to cart page and check products in the cart
+  await cartPage.goTo();
+  await cartPage.checkCartTitle("Products");
+  await cartPage.checkCartProducts(ramdomPurchase);
+  await cartPage.checkCartTotalPrice(ramdomPurchase.totalPrice.toString());
 
-  // // Place order
-  // await page.getByRole("button", { name: "Place Order" }).click();
-  // await placeOrder(page, customer);
+  // Place order
+  await cartPage.placeOrder();
+  await cartPage.checkPlaceOrderModalTotal(
+    ramdomPurchase.totalPrice.toString()
+  );
 
-  // // Calculate the total amount to compare with the purchase details
-  // bill.calculateTotal();
-
-  // // Complete the purchase
-  // await page.getByRole("button", { name: "Purchase" }).click();
-
-  // // Verify the success message modal
-  // await expect(page.getByText("Thank you for your purchase!")).toBeVisible();
-
-  // // Verify purchase details
-  // const purchaseDetails = await page.locator("p.lead.text-muted").textContent();
-  // expect(purchaseDetails).toContain(`Amount: ${bill.totalAmount}`);
-  // expect(purchaseDetails).toContain(
-  //   `Card Number: ${customer.creditCardNumber}`
-  // );
-  // expect(purchaseDetails).toContain(`Name: ${customer.name}`);
-
-  // // Close the confirmation dialog
-  // await page.getByRole("button", { name: "OK" }).click();
+  // Complete the purchase
+  await cartPage.fillPlaceOrderModal(customer);
+  await cartPage.confirmPurchase();
+  await cartPage.checkThanksModal(customer);
 
   // Logout
-  await homePage.logOut();
+  // await homePage.goTo();
+  // await homePage.logOut();
 });
